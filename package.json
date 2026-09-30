@@ -1,0 +1,15 @@
+{
+  "name": "restyle",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local image style-transfer tool driven by a versioned art direction file.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test \"test/*.spec.mjs\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

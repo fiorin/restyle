@@ -1,0 +1,127 @@
+# Projection of art-direction.md into machine-readable fields.
+#
+# ATENÇÃO: este arquivo NÃO é a fonte da verdade — art-direction.md é.
+# Ele é a projeção estruturada do documento, e é gerado/mainido pelo
+# importador. Se você editar o .md e não reimportar, este arquivo fica
+# desatualizado (a UI avisa pelo hash).
+#
+# REGRA: hex só entra se o documento trouxer hex. §5 do documento KARTACLYSMA
+# traz nome e papel semântico, nunca hex — então todos os hex são null de
+# propósito. Preencher a olho seria fabricar precisão que o estágio 1 depois
+# passa a exigir como se você tivesse dito.
+#
+# Proveniência: §2 premise · §4 textura · §5 paleta · §9 chunky · §10 estilos
+# · §11 elementos gráficos · §12 negativas · §13 invariantes · §14 preservação
+# · §15 fórmula · §16 identidade
+
+version: 1
+universe: KARTACLYSMA
+
+# §2 — a definição em uma frase. É o DNA, vale para os três estilos.
+premise: "Cartoon de corrida underground + comic book de ação + street/graffiti, com lineart pesada, cel shading agressivo, textura impressa/desgastada e identidade gráfica de pôster de competição."
+
+# §16 — identidade do universo, em inglês, verbatim. Entra em TODO prompt.
+# Não parafrasear: é a alavanca de consistência e precisa ser byte-idêntica.
+identity_universe: "KARTACLYSMA VISUAL DNA: stylized action-cartoon character art, underground demolition-racing aesthetic, bold comic-book ink, very thick black outer contours, expressive irregular inner linework, aggressive cel shading, exaggerated anatomy and proportions, strong readable silhouette, dynamic foreshortened poses, chunky mechanical shapes, distressed screen-print texture, rough brush strokes, ink splatters, scratches and worn paint, high contrast, black/off-white/yellow/red core palette, secondary character-specific accent color, gritty street-racing attitude, hand-painted graphic details, energetic composition, slightly imperfect printed-poster appearance, collectible game character illustration, highly readable at small scale, no photorealism, no smooth 3D-render look, no anime aesthetics, no clean corporate vector style."
+
+# §10 — três níveis de aplicação. `clean_distressed` vem da tabela de §4.
+styles:
+  A:
+    name: "KARTACLYSMA CHARACTER"
+    clean_distressed: 0.7
+    aspect: "3:4"
+    applies_to: ["personagens", "miniaturas", "karts", "armas", "itens", "renders"]
+    traits: ["aggressive cartoon", "very thick black outline", "cel shading", "exaggerated proportions", "strong silhouette", "dynamic pose", "comic-book rendering", "limited palette", "high legibility", "no photorealism"]
+  B:
+    name: "KARTACLYSMA GRAPHIC"
+    clean_distressed: 0.5
+    aspect: "3:4"
+    applies_to: ["fichas", "posters", "caixa", "hotsite", "banners", "cards", "anuncios", "materiais promocinais"]
+    traits: ["comic-book poster", "graffiti brush strokes", "distressed print", "black off-white yellow red", "manual-looking typography", "rough ink", "halftone", "paint splatter", "racing graphics", "checkered motifs", "editorial layout", "doodles", "arrows", "stickers", "graphic callouts"]
+  C:
+    name: "KARTACLYSMA SPLASH"
+    clean_distressed: 0.3
+    aspect: "16:9"
+    applies_to: ["key art", "splash art", "capa", "banners principais", "cenas de corrida", "cenas com varios personagens", "materiais de campanha"]
+    # §3 exige texto no C. "negative_by_style.C vazio" NÃO basta: o viés padrão
+    # dos modelos é não gerar texto, então o C precisa pedir explicitamente.
+    traits: ["exaggerated perspective", "low camera", "characters across multiple planes", "speed", "smoke", "explosions", "debris", "particles", "dramatic lighting", "detailed scenery", "cinematic composition", "comic action poster", "visible background text and display typography integrated into the artwork"]
+
+# §5 — papel semântico, verbatim. hex null porque o documento não traz hex.
+palette:
+  yellow:   { role: "identidade, destaque, energia",   hex: null }
+  red:      { role: "velocidade, perigo, impacto",     hex: null }
+  black:    { role: "contorno, massa, contraste",      hex: null }
+  offwhite: { role: "texto, highlights, negativo",      hex: null }
+  beige:    { role: "papel e superficies de impressao", hex: null }
+
+# §5 — a regra: preto/amarelo/branco/vermelho são a linguagem comum, e cada
+# personagem pode ter uma cor secundária própria sem sair do universo.
+palette_rule: "black + yellow + white + red work as the shared chromatic language of the universe; each character may carry one secondary accent color, and that color must never make the character look like it belongs to another visual universe."
+
+# §16 — a regra adicional obrigatória. Entra em TODO prompt, nunca parafraseada.
+# É o que impede o modelo de trocar o personagem em vez de trocar o rendering.
+preservation:
+  - "Preserve the character's original identity, facial features, hairstyle, clothing silhouette, accessories, proportions and distinctive visual motifs."
+  - "Change the rendering language, not the character design."
+
+# §14 — a lista concreta do que preservar, quando presente na origem.
+preserve_when_present: ["face", "facial features", "hairstyle", "hair", "facial hair", "clothing", "accessories", "characteristic proportions", "tattoos", "symbols", "essential colors", "narrative elements", "silhouette", "visual personality"]
+
+# §14 — a frase que resume a preservação, para o prompt.
+preservation_principle: "Do not redesign a character just to make it look more KARTACLYSMA."
+
+# §13 — as 10 invariantes. Vira também os eixos do QA (um por eixo).
+consistency_invariants: ["heavy lineart", "cel shading", "cartoonized proportions", "strong silhouette", "high contrast", "ink/print texture", "comic book language", "underground racing aesthetic", "chunky shapes", "imperfect distressed finish"]
+
+# §9 — legível em miniatura. §9 menciona células de 25-30mm.
+small_scale_rule: "3-5 strong visual masses read better than dozens of microscopic details."
+small_scale_context: "many elements are cast as resin miniatures, tokens and game items around 25-30 mm; details that vanish at that size must be dropped."
+
+# §11 — elementos gráficos recorrentes. NÃO é negativa: é vocabulário
+# disponível. Só entra no prompt quando o estilo realmente quiser.
+graphic_elements: ["large titles", "brush strokes", "yellow bands", "black boxes", "red as accent", "handwritten typography", "large numbers", "symbols", "arrows", "checkered flag", "crowns", "doodles", "character catchphrases", "stickers", "small doodles", "ink stains"]
+
+# §12 — o que nunca usar como linguagem dominante. Comum aos três estilos.
+negative_common: ["anime aesthetics, oversized anime eyes, anime hair, thin lineart", "Pixar/Disney soft 3D lighting, realistic cinematic volume, plastic finish", "generic 3D game render, excessive 3D detail, overly realistic materials, polished CGI", "clean corporate vector flat, low texture, uniform lines", "photorealism, photographic skin, photographic fabric, realistic vehicles", "generic blue/purple neon cyberpunk", "pure graffiti replacing the character language", "microdetail that disappears at small scale"]
+
+# Negativas por estilo. Repare que A e B se invertem:
+# A é render de personagem e não quer tipografia; B É peça gráfica e a
+# tipografia é elemento pedido — proibir texto ali inverteria o briefing.
+negative_by_style:
+  A: ["text, letters, numbers, watermark, signature"]
+  B: ["clean digital typesetting, neutral sans-serif typography, corporate layout"]
+  C: []
+
+# §15 — a sequência. Mantida como referência, NÃO injetada no prompt: uma
+# cadeia rígida de 18 passos não mapeia bem em como modelo de imagem trabalha.
+# Fica no .md para consulta humana.
+formula_reference: "KARTACLYSMA -> action cartoon -> thick black ink -> aggressive cel shading -> exaggerated proportions -> strong silhouette -> dynamic pose -> action perspective -> chunky shapes -> black/off-white/yellow/red -> character-specific secondary color -> distressed texture -> brush strokes -> street racing -> comic book -> high legibility -> no photorealism -> no soft CGI -> no anime -> no clean corporate vector"
+
+# §17 — o princípio central. Fica no .md; a checagem é por QA.
+central_principle: "The goal is not to make every image look alike. The goal is to make every image look like part of the same universe."
+
+# Parâmetros de render. Sobrescrevíveis por job.
+render:
+  model: "gpt-image-2"
+  draft_model: "gpt-image-1-mini"
+  quality: "high"
+  draft_quality: "low"
+  max_pixels: 2160
+  default_style: "A"
+
+# QA automático: eixos derivados de consistency_invariants.
+qa:
+  enabled: false
+  threshold: 0.75
+  max_attempts: 2
+
+# Mapas de paleta por personagem. NÃO é estilo — é roster, e por isso mora
+# aqui e não endurece no .md. Adicione conforme o elenco cresce.
+roster:
+  R0cco: "red"
+  Rex: "green"
+  Citrus: "orange"
+  Crusher: "pink"
+  Kiara: "red / wine"
+  Kin: "acid green"

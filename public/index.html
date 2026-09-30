@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>restyle</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>restyle</h1>
+      <span class="hash" id="hash" title="hash da direção de arte">—</span>
+      <span class="spacer"></span>
+      <button id="btn-artdir">Direção de arte</button>
+      <button id="btn-settings">Config</button>
+    </header>
+
+    <section class="bar">
+      <input id="sourceDir" placeholder="pasta com as imagens de origem" />
+      <button id="btn-scan">Escanear</button>
+      <span class="spacer"></span>
+      <label class="field">estilo <select id="style"></select></label>
+      <label class="field">provider <select id="provider">
+        <option value="gemini">gemini</option>
+        <option value="openai">openai</option>
+      </select></label>
+      <label class="field">variantes <input id="variants" type="number" min="1" max="4" value="1" /></label>
+      <label class="chk"><input type="checkbox" id="draft" /> rascunho (barato)</label>
+      <label class="chk"><input type="checkbox" id="force" /> forçar re-render</label>
+      <input id="jobName" placeholder="nome do lote" />
+      <button id="btn-render" class="primary">Converter selecionadas</button>
+    </section>
+
+    <div id="styleHint" class="style-hint hidden"></div>
+
+    <main>
+      <aside id="list" class="list"></aside>
+      <section id="stage" class="stage">
+        <p class="empty">Selecione uma imagem para comparar antes/depois.</p>
+      </section>
+    </main>
+
+    <dialog id="dlg-settings">
+      <h2>Config</h2>
+      <div class="grid">
+        <label>Provider padrão
+          <select id="setProvider">
+            <option value="gemini">gemini (free tier)</option>
+            <option value="openai">openai</option>
+          </select>
+        </label>
+        <label>Chave Gemini <input id="setGeminiKey" type="password" placeholder="vazio = manter a atual" /></label>
+        <label>Chave OpenAI <input id="setToken" type="password" placeholder="vazio = manter a atual" /></label>
+        <label>Diretório de origem <input id="setSource" /></label>
+        <label>Diretório de saída <input id="setOutput" /></label>
+        <label>Modelo Gemini <input id="setGeminiModel" placeholder="vazio = padrão do provider" /></label>
+        <label>Modelo OpenAI <input id="setRenderModel" placeholder="vazio = padrão do provider" /></label>
+        <label>Qualidade (openai) <input id="setQuality" /></label>
+        <label>Altura máx (px) <input id="setMaxPixels" type="number" /></label>
+        <label>Variantes por imagem <input id="setVariants" type="number" min="1" max="4" /></label>
+        <label class="chk"><input type="checkbox" id="setAnchor" /> usar style-anchor.png</label>
+        <label class="chk"><input type="checkbox" id="setRefs" /> usar outras refs/</label>
+      </div>
+      <p class="hint" id="settingsHint"></p>
+      <menu>
+        <button id="settingsClose">Fechar</button>
+        <button id="settingsSave" class="primary">Salvar</button>
+      </menu>
+    </dialog>
+
+    <dialog id="dlg-artdir">
+      <h2>Direção de arte</h2>
+      <p class="hint" id="artdirPaths"></p>
+      <div id="artdirMd" class="md"></div>
+      <details>
+        <summary>art-direction.yaml (card)</summary>
+        <pre id="artdirYaml" class="md"></pre>
+      </details>
+      <menu>
+        <button id="artdirReload">Recarregar do disco</button>
+        <button id="artdirClose" class="primary">Fechar</button>
+      </menu>
+    </dialog>
+
+    <div id="jobbar" class="jobbar hidden">
+      <span id="jobText"></span>
+      <progress id="jobProgress" value="0" max="1"></progress>
+      <button id="jobCancel">Cancelar</button>
+    </div>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
